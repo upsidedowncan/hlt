@@ -1,0 +1,5 @@
+flutter.sdk=/home/deda/flutter/flutter
+sdk.dir=/home/deda/Android/sdk/
+flutter.buildMode=debug
+flutter.versionName=1.0.0
+flutter.versionCode=1
