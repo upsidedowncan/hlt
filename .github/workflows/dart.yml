@@ -14,15 +14,15 @@ jobs:
         with:
           channel: 'stable'
           architecture: x64
+
       - run: flutter pub get
-      
 
       - run: pod repo update
         working-directory: ios
 
       - run: flutter build ios --release --no-codesign
 
-      - run: mkdir Payload
+      - run: mkdir -p Payload
         working-directory: build/ios/iphoneos
 
       - run: mv Runner.app/ Payload
@@ -32,11 +32,8 @@ jobs:
         run: zip -qq -r -9 FlutterIpaExport.ipa Payload
         working-directory: build/ios/iphoneos
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      - name: Upload IPA as artifact
+        uses: actions/upload-artifact@v3
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/ios/iphoneos/FlutterIpaExport.ipa
-          tag: v1.0
-          overwrite: true
-          body: "This is first release"
+          name: FlutterIpaExport.ipa
+          path: build/ios/iphoneos/FlutterIpaExport.ipa
